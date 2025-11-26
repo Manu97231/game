@@ -1,0 +1,1199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>404 NOT FOUND - Internet Game</title>
+    <style>
+        /* Variables CSS pour le thème cyber premium */
+        :root {
+            --primary-color: #0a0e1a;
+            --secondary-color: #151a2d;
+            --accent-color: #1e2540;
+            --cyber-blue: #00f2fe;
+            --cyber-purple: #9d4edd;
+            --cyber-pink: #ff2e93;
+            --cyber-teal: #00ffc8;
+            --text-color: #e6f1ff;
+            --card-bg: rgba(30, 37, 64, 0.9);
+            --button-bg: linear-gradient(135deg, #00f2fe, #9d4edd);
+            --button-hover: linear-gradient(135deg, #00d4e6, #8a3ec9);
+            --success-color: #00ffaa;
+            --error-color: #ff2e6d;
+            --warning-color: #ffd93d;
+            --transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            --glow: 0 0 25px rgba(0, 242, 254, 0.5);
+            --glow-strong: 0 0 40px rgba(0, 242, 254, 0.7);
+            --cyber-grid: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18h3v3h-3v-3zm0-11h3v3h-3v-3zm11 0h3v3h-3v-3zm0 11h3v3h-3v-3zm-11 11h3v3h-3v-3zm0 11h3v3h-3v-3zm11 0h3v3h-3v-3zm0 11h3v3h-3v-3zm-11 11h3v3h-3v-3zm0 11h3v3h-3v-3zm11 0h3v3h-3v-3zm0 11h3v3h-3v-3z' fill='%2300f2fe' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
+        }
+
+        /* Reset et styles de base */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Rajdhani', 'Segoe UI', sans-serif; }
+        @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&display=swap');
+
+        body {
+            background:
+                radial-gradient(circle at 20% 80%, rgba(157, 78, 221, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(0, 242, 254, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(255, 46, 147, 0.05) 0%, transparent 50%),
+                linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--text-color);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-image: var(--cyber-grid);
+            opacity: 0.3; z-index: -1; pointer-events: none;
+        }
+
+        .container {
+            max-width: 1100px;
+            width: 100%;
+            background: var(--card-bg);
+            border-radius: 24px;
+            box-shadow: var(--glow-strong), inset 0 1px 0 rgba(255,255,255,0.1), inset 0 -1px 0 rgba(0,0,0,0.3);
+            padding: 32px;
+            margin: 20px 0;
+            transition: var(--transition);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(0,242,254,0.15);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .container::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+            background: linear-gradient(90deg, var(--cyber-blue), var(--cyber-purple), var(--cyber-pink)); box-shadow: var(--glow); }
+
+        .screen { display:none; flex-direction:column; align-items:center; gap:20px; animation: fadeInUp .5s ease-out; }
+        .screen.active { display:flex; }
+
+        h1,h2,h3 { text-align:center; color:var(--text-color); font-weight:700; text-transform:uppercase; letter-spacing:2px; }
+        h1 { font-size:3.5rem; margin-bottom:8px; background: linear-gradient(135deg,var(--cyber-blue),var(--cyber-purple),var(--cyber-teal)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; text-shadow: 0 0 30px rgba(0,242,254,0.6); }
+        h2 { font-size:2rem; color:var(--cyber-blue); text-shadow: var(--glow); }
+
+        .btn { background: var(--button-bg); color:white; border:none; padding:14px 30px; border-radius:14px; cursor:pointer; font-size:1rem; font-weight:700; transition:var(--transition); letter-spacing:1.5px; margin:8px; box-shadow:var(--glow); position:relative; overflow:hidden; }
+        .btn::before{ content:''; position:absolute; top:0; left:-100%; width:100%; height:100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent); transition:0.6s; }
+        .btn:hover::before{ left:100%; }
+        .btn:hover{ transform: translateY(-4px) scale(1.02); box-shadow: var(--glow-strong); background: var(--button-hover); }
+        .btn-danger { background: linear-gradient(135deg, var(--error-color), var(--cyber-pink)); }
+        .btn-success { background: linear-gradient(135deg, var(--success-color), var(--cyber-teal)); }
+        .btn-warning { background: linear-gradient(135deg, var(--warning-color), #ffa93d); }
+        .btn-small { padding:10px 14px; font-size:.9rem; border-radius:10px; }
+
+        .form-group { margin-bottom:20px; width:100%; max-width:520px; }
+        label { display:block; margin-bottom:8px; color:var(--cyber-blue); font-weight:600; }
+        input, select, textarea { width:100%; padding:12px 14px; border-radius:10px; border:1.5px solid rgba(0,242,254,0.12); background:rgba(20,25,40,0.6); color:var(--text-color); font-size:1rem; }
+
+        .card { background: var(--card-bg); border-radius:16px; padding:20px; margin:12px; box-shadow: var(--glow); width:100%; max-width:420px; border:1px solid rgba(0,242,254,0.12); text-align:center; }
+        .secret-card { padding:28px; }
+        .secret-word { font-size:2.5rem; font-weight:800; color:var(--cyber-blue); margin:14px 0; padding:18px; border-radius:12px; border:3px solid var(--cyber-blue); background: rgba(0,0,0,0.35); font-family: 'Courier New', monospace; }
+        .blank-card { font-size:2.5rem; font-weight:800; color:var(--cyber-blue); margin:14px 0; padding:18px; border-radius:12px; border:3px solid var(--cyber-blue); background: rgba(0,0,0,0.35); font-family: 'Courier New', monospace; opacity: 0.1; }
+        .role-badge { display:inline-block; padding:10px 20px; border-radius:20px; font-weight:800; margin:10px 0; box-shadow:var(--glow); font-size:1rem; text-transform:uppercase; }
+        .role-player { background: linear-gradient(135deg, var(--success-color), var(--cyber-teal)); color:var(--primary-color); }
+
+        .cyber-line { height:2px; background: linear-gradient(90deg, transparent, var(--cyber-blue), transparent); margin:15px 0; width:80%; opacity:0.6; }
+
+        .players-list { display:flex; gap:10px; flex-wrap:wrap; justify-content:center; margin-top:12px; }
+        .player-pill { padding:8px 12px; border-radius:999px; background: rgba(255,255,255,0.03); border:1px solid rgba(0,242,254,0.06); min-width:150px; text-align:left; }
+
+        .overlay { position:fixed; inset:0; background: rgba(0,0,0,0.6); display:none; align-items:center; justify-content:center; z-index:30; }
+        .overlay.active { display:flex; }
+        .modal { background:var(--card-bg); padding:20px; border-radius:12px; width:90%; max-width:520px; border:1px solid rgba(0,242,254,0.08); }
+
+        .vote-grid { display:grid; grid-template-columns: 1fr 1fr; gap:8px; }
+        .vote-btn { width:100%; margin:5px 0; }
+        .voter-list { display:flex; flex-direction:column; gap:10px; margin:15px 0; }
+        .voter-item { display:flex; justify-content:space-between; align-items:center; padding:10px; background:rgba(255,255,255,0.05); border-radius:8px; }
+
+        .ranking-list { width:100%; max-width:400px; }
+        .ranking-item { display:flex; justify-content:space-between; align-items:center; padding:10px; margin:5px 0; background:rgba(255,255,255,0.05); border-radius:8px; }
+
+        /* Styles pour les popups personnalisés */
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .popup-overlay.active {
+            display: flex;
+        }
+
+        .popup-content {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 800px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: var(--glow-strong);
+            border: 2px solid var(--cyber-blue);
+            position: relative;
+        }
+
+        .popup-overlay.active .popup-content {
+            animation: popIn 0.3s ease-out;
+        }
+
+        .popup-title {
+            color: var(--cyber-blue);
+            font-size: 2rem;
+            margin-bottom: 20px;
+            text-align: center;
+            text-shadow: var(--glow);
+        }
+
+        .popup-message {
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .popup-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .popup-btn {
+            padding: 12px 24px;
+            background: var(--button-bg);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: var(--transition);
+        }
+
+        .popup-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--glow);
+        }
+
+        /* Styles spécifiques pour la page de règles */
+        .rules-container {
+            max-width: 800px;
+            width: 100%;
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: var(--glow-strong);
+            border: 2px solid var(--cyber-blue);
+            margin: 20px 0;
+        }
+
+        .rules-header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid var(--cyber-blue);
+        }
+
+        .rules-title {
+            font-size: 3rem;
+            color: var(--cyber-pink);
+            text-shadow: 0 0 20px rgba(255, 46, 147, 0.7);
+            margin-bottom: 10px;
+        }
+
+        .rules-subtitle {
+            font-size: 1.2rem;
+            color: var(--cyber-blue);
+            font-style: italic;
+        }
+
+        .rules-section {
+            margin-bottom: 30px;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            color: var(--warning-color);
+            margin-bottom: 15px;
+            padding-left: 10px;
+            border-left: 4px solid var(--warning-color);
+        }
+
+        .rules-list {
+            list-style-type: none;
+            padding-left: 20px;
+        }
+
+        .rules-list li {
+            margin-bottom: 15px;
+            padding-left: 30px;
+            position: relative;
+            line-height: 1.5;
+        }
+
+        .rules-list li:before {
+            content: "•";
+            color: var(--success-color);
+            font-size: 1.5rem;
+            position: absolute;
+            left: 0;
+            top: -3px;
+        }
+
+        .victory-section {
+            background-color: rgba(46, 204, 113, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 5px solid var(--success-color);
+        }
+
+        .victory-title {
+            color: var(--success-color);
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+        }
+
+        .rules-footer {
+            text-align: center;
+            margin-top: 30px;
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+
+        /* Styles responsive pour les boutons de jeu */
+        .game-controls {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            align-items: center;
+            margin-top: 12px;
+            flex-wrap: wrap;
+        }
+
+        .game-controls .btn-small {
+            flex: 1;
+            min-width: 100px;
+            max-width: 120px;
+        }
+
+        @keyframes popIn {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes fadeInUp { from { opacity:0; transform:translateY(30px);} to {opacity:1; transform:translateY(0);} }
+        @media (max-width:768px) {
+            h1 { font-size:2.4rem; }
+            .container { padding:20px; }
+            .rules-container { padding: 20px; }
+            .rules-title { font-size: 2.2rem; }
+            .game-controls {
+                flex-direction: column;
+                width: 100%;
+            }
+            .game-controls .btn-small {
+                width: 100%;
+                max-width: none;
+            }
+        }
+
+        @media (max-width:480px) {
+            .btn { padding: 12px 20px; font-size: 0.9rem; }
+            .card { padding: 15px; margin: 8px; }
+            .secret-card { padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- WELCOME -->
+        <div id="welcome-screen" class="screen active">
+            <h1>404 NOT FOUND</h1>
+            <p>An infiltration and deduction game about the Internet</p>
+            <div class="cyber-line"></div>
+            <div style="display:flex; gap:10px; margin:10px 0;">
+                <span class="pulse-dot" style="width:8px;height:8px;background:var(--cyber-blue);border-radius:50%;box-shadow:var(--glow)"></span>
+                <span class="pulse-dot" style="width:8px;height:8px;background:var(--cyber-blue);border-radius:50%;box-shadow:var(--glow)"></span>
+                <span class="pulse-dot" style="width:8px;height:8px;background:var(--cyber-blue);border-radius:50%;box-shadow:var(--glow)"></span>
+            </div>
+            <button id="start-game" class="btn">Start Game</button>
+            <button id="show-rules" class="btn btn-small" style="background:transparent;border:1px solid rgba(0,242,254,.08);">Rules</button>
+            <button id="show-ranking" class="btn btn-small" style="background:transparent;border:1px solid rgba(0,242,254,.08);">Ranking</button>
+        </div>
+
+        <!-- SETUP -->
+        <div id="setup-screen" class="screen">
+            <h2>Setup</h2>
+            <div class="form-group">
+                <label for="player-count">Number of players:</label>
+                <select id="player-count">
+                    <option value="3">3 players</option>
+                    <option value="4">4 players</option>
+                    <option value="5">5 players</option>
+                    <option value="6">6 players</option>
+                    <option value="7">7 players</option>
+                    <option value="8">8 players</option>
+                    <option value="9">9 players</option>
+                    <option value="10">10 players</option>
+                    <option value="11">11 players</option>
+                    <option value="12">12 players</option>
+                </select>
+            </div>
+            <div style="display:flex; gap:10px;">
+                <button id="confirm-player-count" class="btn">Confirm</button>
+                <button id="back-to-welcome" class="btn btn-danger">Back</button>
+            </div>
+        </div>
+
+        <!-- NAME INPUT -->
+        <div id="name-input-screen" class="screen">
+            <h2>Player <span id="current-player-number">1</span></h2>
+            <div class="form-group">
+                <label for="player-name">Enter your name:</label>
+                <input type="text" id="player-name" placeholder="" maxlength="20">
+            </div>
+            <div style="display:flex; gap:10px;">
+                <button id="confirm-name" class="btn">Confirm</button>
+                <button id="cancel-name" class="btn btn-danger">Cancel</button>
+            </div>
+        </div>
+
+        <!-- SECRET CARD -->
+        <div id="secret-card-screen" class="screen">
+            <div class="card secret-card">
+                <h2 id="player-greeting">Player</h2>
+                <div class="secret-word" id="secret-word">WORD</div>
+                <div id="role-badge" class="role-badge role-player">PLAYER</div>
+                <p>Remember your word and role!</p>
+                <p>Give clues to find the impostors without revealing your word.</p>
+                <div class="cyber-line"></div>
+                <button id="hide-card" class="btn">🙈 Hide Card</button>
+            </div>
+        </div>
+
+        <!-- BLANK CARD SCREEN -->
+        <div id="blank-card-screen" class="screen">
+            <div class="card secret-card">
+                <h2 id="blank-card-title">Player's Card</h2>
+                <div class="blank-card">?????</div>
+                <p>Ready to see your secret word?</p>
+                <div class="cyber-line"></div>
+                <button id="show-card" class="btn">👁️ Show My Card</button>
+                <button id="next-player" class="btn btn-success">Next Player</button>
+                <p style="margin-top: 10px; font-size: 0.9rem; opacity: 0.7;">Remember your word and keep it secret!</p>
+            </div>
+        </div>
+
+        <!-- GAME SCREEN -->
+        <div id="game-screen" class="screen">
+            <h2>Game</h2>
+            <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap; justify-content:center; width:100%;">
+                <div class="card" style="max-width:660px;">
+                    <h3 id="turn-title">Turn: -</h3>
+
+                    <div style="margin:20px 0; padding:15px; background:rgba(0,0,0,0.3); border-radius:12px; border:1px solid rgba(0,242,254,0.1);">
+                        <h4>🎲 Current Turn 🎲</h4>
+                        <p style="font-size:0.9rem; opacity:0.8;">Use the physical dice and board</p>
+                        <div class="game-controls">
+                            <button id="next-turn" class="btn btn-success btn-small">Next Turn</button>
+                            <button id="open-vote" class="btn btn-danger btn-small">Vote</button>
+                            <button id="show-ranking-game" class="btn btn-warning btn-small">Ranking</button>
+                        </div>
+                    </div>
+
+                    <div class="players-list" id="players-list"></div>
+
+                    <div style="margin-top:12px; display:flex; gap:10px; justify-content:center; flex-wrap: wrap;">
+                        <button id="show-rules-compact" class="btn btn-small">Rules (summary)</button>
+                        <button id="end-game-btn" class="btn btn-small btn-danger">End Game</button>
+                    </div>
+                </div>
+
+                <div class="card" style="max-width:360px;">
+                    <h3>Game Log</h3>
+                    <div id="game-log" style="max-height:300px; overflow:auto; font-size:.9rem; line-height:1.4; padding:10px; background:rgba(0,0,0,0.2); border-radius:8px;"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- VOTER SELECTION MODAL -->
+        <div class="overlay" id="voter-selection-modal">
+            <div class="modal">
+                <h3>Who wants to vote?</h3>
+                <p style="margin-bottom:15px; opacity:0.8;">Select players who want to vote this round</p>
+                <div id="voter-list" class="voter-list"></div>
+                <div style="display:flex; gap:8px; justify-content:flex-end; margin-top:12px;">
+                    <button id="cancel-voter-selection" class="btn btn-small">Cancel</button>
+                    <button id="start-voting" class="btn btn-danger btn-small">Start Voting</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- VOTE MODAL -->
+        <div class="overlay" id="vote-modal">
+            <div class="modal">
+                <h3>Vote - Suspect a player</h3>
+                <p style="margin-bottom:15px; opacity:0.8;">Choose a player you suspect is the impostor</p>
+                <div id="current-voter" style="text-align:center; margin-bottom:15px; padding:10px; background:rgba(0,242,254,0.1); border-radius:8px;">
+                    <strong>Currently voting: -</strong>
+                </div>
+                <div id="vote-list" style="margin-top:10px;"></div>
+                <div style="display:flex; gap:8px; justify-content:flex-end; margin-top:12px;">
+                    <button id="cancel-vote" class="btn btn-small">Cancel</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- RANKING MODAL -->
+        <div class="overlay" id="ranking-modal">
+            <div class="modal">
+                <h3>🏆 Player Ranking</h3>
+                <div id="ranking-list" class="ranking-list" style="margin-top:15px;"></div>
+                <div style="display:flex; justify-content:flex-end; margin-top:12px;">
+                    <button id="close-ranking" class="btn btn-small">Close</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- RULES MODAL -->
+        <div class="overlay" id="rules-modal">
+            <div class="modal">
+                <h3>404 NOT FOUND – Official Rules</h3>
+                <div style="max-height:380px; overflow:auto; font-size:.95rem; line-height:1.5;">
+                    <p><strong>1. Objective</strong><br>Identify the impostors. Normal players have the same word, impostors have a different similar word.</p>
+                    <p><strong>2. Components</strong><br>Board, QR code, dice, tokens, smartphone for the app (names, word distribution, roles, bonus/malus, random actions).</p>
+                    <p><strong>3. Preparation</strong><br>Place board, choose tokens, scan QR, enter number of players (3+), type name, app distributes words discreetly.</p>
+                    <p><strong>4. Gameplay</strong><br>Turn: roll dice, move, apply effect, give a clue in English according to the effect. Bonus = positive effects, Malus = negative effects, ? = random.</p>
+                    <p><strong>5. Vote</strong><br>At any time, start a vote. If you correctly identify an impostor: +1 point. If wrong: skip next turn.</p>
+                    <p><strong>6. Tips</strong><br>Stay vague but useful. Impostors must stick close to the group's word.</p>
+                </div>
+                <div style="display:flex; justify-content:flex-end; margin-top:12px;">
+                    <button id="close-rules" class="btn btn-small">Close</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- POPUP OVERLAY POUR LES RÈGLES COMPLÈTES -->
+    <div class="popup-overlay" id="rules-popup">
+        <div class="popup-content">
+            <div class="rules-header">
+                <h1 class="rules-title">404 NOT FOUND</h1>
+                <div class="rules-subtitle">OFFICIAL RULES</div>
+            </div>
+            
+            <div class="rules-section">
+                <h2 class="section-title">GAME OVERVIEW</h2>
+                <ul class="rules-list">
+                    <li>404 NOT FOUND is a social deduction game for 4-10 players</li>
+                    <li>Players are divided into two teams: Normal Players and Impostors</li>
+                    <li>The game takes place aboard a spaceship or research station</li>
+                    <li>Each round consists of discussion phases and voting phases</li>
+                </ul>
+            </div>
+            
+            <div class="rules-section">
+                <h2 class="section-title">PLAYER ROLES</h2>
+                <ul class="rules-list">
+                    <li><strong>Normal Players:</strong> Complete tasks and identify Impostors</li>
+                    <li><strong>Impostors:</strong> Sabotage the ship and eliminate Normal Players</li>
+                    <li><strong>Special Roles:</strong> Some versions include roles like Detective, Medic, or Engineer</li>
+                </ul>
+            </div>
+            
+            <div class="rules-section">
+                <h2 class="section-title">GAME MECHANICS</h2>
+                <ul class="rules-list">
+                    <li>Players can report dead bodies to call emergency meetings</li>
+                    <li>Emergency meetings can be called when players discover a corpse</li>
+                    <li>During discussions, players present alibis and suspicions</li>
+                    <li>Voting requires a majority to eject a player</li>
+                    <li>Ejected players are revealed as Normal or Impostor</li>
+                </ul>
+            </div>
+            
+            <div class="victory-section">
+                <h2 class="victory-title">VICTORY CONDITIONS</h2>
+                <ul class="rules-list">
+                    <li>Normal players win when all Impostors are identified and ejected</li>
+                    <li>Impostors win when their numbers equal or exceed Normal players</li>
+                    <li>Impostors can also win by critical sabotage if not resolved in time</li>
+                </ul>
+            </div>
+            
+            <div class="rules-footer">
+                <p>© 2025 - All rights reserved</p>
+            </div>
+
+            <div class="popup-buttons">
+                <button class="popup-btn" onclick="closeRulesPopup()">Close Rules</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- POPUP OVERLAY POUR LES ALERTES PERSONNALISÉES -->
+    <div class="popup-overlay" id="custom-alert-popup">
+        <div class="popup-content">
+            <h3 class="popup-title" id="alert-title">Alert</h3>
+            <p class="popup-message" id="alert-message">This is a custom alert message</p>
+            <div class="popup-buttons">
+                <button class="popup-btn" id="alert-confirm">OK</button>
+                <button class="popup-btn" id="alert-cancel" style="display:none;">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ---------- GAME DATA ----------
+        const gameData = {
+            players: [],
+            currentPlayerSetupIndex: 0,
+            currentRevealIndex: 0,
+            currentTurnIndex: 0,
+            wordPairs: [
+                { normal: "Google", undercover: "Firefox" },
+                { normal: "Laptop", undercover: "Smartphone" },
+                { normal: "Wi-Fi", undercover: "4G" },
+                { normal: "Instagram", undercover: "TikTok" },
+                { normal: "Keyboard", undercover: "Mouse" },
+                { normal: "Chrome", undercover: "Safari" },
+                { normal: "Facebook", undercover: "Twitter" },
+                { normal: "YouTube", undercover: "Twitch" },
+                { normal: "Email", undercover: "Chat" },
+                { normal: "Website", undercover: "App" },
+                { normal: "Download", undercover: "Upload" },
+                { normal: "Password", undercover: "PIN" }
+            ],
+            gameState: 'lobby',
+            currentVoters: [],
+            currentVoterIndex: 0,
+            usedWordPairs: new Set()
+        };
+
+        // ---------- DOM ----------
+        const screens = {
+            welcome: document.getElementById('welcome-screen'),
+            setup: document.getElementById('setup-screen'),
+            nameInput: document.getElementById('name-input-screen'),
+            secretCard: document.getElementById('secret-card-screen'),
+            blankCard: document.getElementById('blank-card-screen'),
+            game: document.getElementById('game-screen')
+        };
+
+        // elements
+        const startBtn = document.getElementById('start-game');
+        const confirmPlayerCountBtn = document.getElementById('confirm-player-count');
+        const backToWelcomeBtn = document.getElementById('back-to-welcome');
+        const confirmNameBtn = document.getElementById('confirm-name');
+        const cancelNameBtn = document.getElementById('cancel-name');
+        const hideCardBtn = document.getElementById('hide-card');
+        const showCardBtn = document.getElementById('show-card');
+        const nextPlayerBtn = document.getElementById('next-player');
+        const endGameBtn = document.getElementById('end-game-btn');
+        const blankCardTitle = document.getElementById('blank-card-title');
+
+        const nextTurnBtn = document.getElementById('next-turn');
+        const playersListDiv = document.getElementById('players-list');
+        const turnTitle = document.getElementById('turn-title');
+        const gameLogDiv = document.getElementById('game-log');
+
+        // Vote modals
+        const voterSelectionModal = document.getElementById('voter-selection-modal');
+        const voterListDiv = document.getElementById('voter-list');
+        const cancelVoterSelectionBtn = document.getElementById('cancel-voter-selection');
+        const startVotingBtn = document.getElementById('start-voting');
+
+        const voteModal = document.getElementById('vote-modal');
+        const voteListDiv = document.getElementById('vote-list');
+        const currentVoterDiv = document.getElementById('current-voter');
+        const cancelVoteBtn = document.getElementById('cancel-vote');
+        const openVoteBtn = document.getElementById('open-vote');
+
+        const rankingModal = document.getElementById('ranking-modal');
+        const rankingListDiv = document.getElementById('ranking-list');
+        const showRankingBtn = document.getElementById('show-ranking');
+        const showRankingGameBtn = document.getElementById('show-ranking-game');
+        const closeRankingBtn = document.getElementById('close-ranking');
+
+        const rulesModal = document.getElementById('rules-modal');
+        const showRulesBtn = document.getElementById('show-rules');
+        const showRulesCompactBtn = document.getElementById('show-rules-compact');
+        const closeRulesBtn = document.getElementById('close-rules');
+
+        const playerCountSelect = document.getElementById('player-count');
+
+        // Popups
+        const rulesPopup = document.getElementById('rules-popup');
+        const customAlertPopup = document.getElementById('custom-alert-popup');
+        const alertTitle = document.getElementById('alert-title');
+        const alertMessage = document.getElementById('alert-message');
+        const alertConfirm = document.getElementById('alert-confirm');
+        const alertCancel = document.getElementById('alert-cancel');
+
+        // ---------- INIT ----------
+        function initGame() {
+            // listeners
+            startBtn.addEventListener('click', showSetupScreen);
+            backToWelcomeBtn.addEventListener('click', showWelcomeScreen);
+            confirmPlayerCountBtn.addEventListener('click', startPlayerSetup);
+            confirmNameBtn.addEventListener('click', confirmPlayerName);
+            cancelNameBtn.addEventListener('click', showSetupScreen);
+            hideCardBtn.addEventListener('click', showBlankCardForCurrentPlayer);
+            showCardBtn.addEventListener('click', showCurrentPlayerCard);
+            nextPlayerBtn.addEventListener('click', goToNextPlayer);
+            endGameBtn.addEventListener('click', confirmEndGame);
+
+            nextTurnBtn.addEventListener('click', nextTurn);
+            openVoteBtn.addEventListener('click', openVoterSelection);
+            cancelVoteBtn.addEventListener('click', () => voteModal.classList.remove('active'));
+            cancelVoterSelectionBtn.addEventListener('click', () => voterSelectionModal.classList.remove('active'));
+            startVotingBtn.addEventListener('click', startVotingSequence);
+
+            showRankingBtn.addEventListener('click', showRanking);
+            showRankingGameBtn.addEventListener('click', showRanking);
+            closeRankingBtn.addEventListener('click', () => rankingModal.classList.remove('active'));
+
+            showRulesBtn.addEventListener('click', showRulesPopup);
+            showRulesCompactBtn.addEventListener('click', () => rulesModal.classList.add('active'));
+            closeRulesBtn.addEventListener('click', () => rulesModal.classList.remove('active'));
+
+            // Custom alert handlers
+            alertConfirm.addEventListener('click', () => {
+                customAlertPopup.classList.remove('active');
+                if (window.alertConfirmCallback) window.alertConfirmCallback();
+            });
+
+            alertCancel.addEventListener('click', () => {
+                customAlertPopup.classList.remove('active');
+                if (window.alertCancelCallback) window.alertCancelCallback();
+            });
+
+            // Close popups when clicking outside
+            document.addEventListener('click', (e) => {
+                if (e.target === rulesPopup) closeRulesPopup();
+                if (e.target === customAlertPopup) customAlertPopup.classList.remove('active');
+            });
+
+            updateAllTexts();
+        }
+
+        function updateAllTexts() {
+            document.querySelector('h1').textContent = '404 NOT FOUND';
+            document.querySelector('p').textContent = 'An infiltration and deduction game about the Internet';
+            startBtn.textContent = 'Start Game';
+        }
+
+        // ---------- POPUP FUNCTIONS ----------
+        function showRulesPopup() {
+            rulesPopup.classList.add('active');
+        }
+
+        function closeRulesPopup() {
+            rulesPopup.classList.remove('active');
+        }
+
+        function showCustomAlert(title, message, confirmCallback = null, cancelCallback = null) {
+            alertTitle.textContent = title;
+            alertMessage.textContent = message;
+            
+            window.alertConfirmCallback = confirmCallback;
+            window.alertCancelCallback = cancelCallback;
+            
+            if (cancelCallback) {
+                alertCancel.style.display = 'block';
+            } else {
+                alertCancel.style.display = 'none';
+            }
+            
+            customAlertPopup.classList.add('active');
+        }
+
+        // ---------- NAVIGATION ----------
+        function showScreen(name) {
+            Object.values(screens).forEach(s => s.classList.remove('active'));
+            if (screens[name]) screens[name].classList.add('active');
+        }
+        function showWelcomeScreen(){ showScreen('welcome'); }
+        function showSetupScreen(){ showScreen('setup'); }
+        function showNameInputScreen(){ showScreen('nameInput'); }
+        function showSecretCardScreen(){ showScreen('secretCard'); }
+        function showBlankCardScreen(){ showScreen('blankCard'); }
+        function showGameScreen(){ showScreen('game'); }
+
+        // ---------- GAME MANAGEMENT ----------
+        function confirmEndGame() {
+            showCustomAlert(
+                "End Game", 
+                "Are you sure you want to end the current game and return to the main menu?",
+                () => {
+                    resetGame();
+                    showWelcomeScreen();
+                },
+                () => {
+                    // Cancel - do nothing
+                }
+            );
+        }
+
+        function resetGame() {
+            gameData.players = [];
+            gameData.currentPlayerSetupIndex = 0;
+            gameData.currentRevealIndex = 0;
+            gameData.currentTurnIndex = 0;
+            gameData.gameState = 'lobby';
+            gameData.currentVoters = [];
+            gameData.currentVoterIndex = 0;
+            gameData.usedWordPairs.clear();
+            
+            // Clear game log
+            gameLogDiv.innerHTML = '';
+            
+            log('Game reset to main menu.');
+        }
+
+        function startNewRound() {
+            // Sauvegarder les noms des joueurs et leurs points
+            const playerNames = gameData.players.map(p => p.name);
+            const playerPoints = gameData.players.map(p => p.points);
+            const playerCount = gameData.players.length;
+            
+            // Réinitialiser les données de jeu mais garder les noms et points
+            gameData.players = [];
+            gameData.currentRevealIndex = 0;
+            gameData.currentTurnIndex = 0;
+            gameData.currentVoters = [];
+            gameData.currentVoterIndex = 0;
+            
+            // Recréer les joueurs avec leurs noms et points
+            for (let i = 0; i < playerCount; i++) {
+                gameData.players.push({
+                    id: i,
+                    name: playerNames[i],
+                    role: 'player',
+                    word: '',
+                    position: 0,
+                    isImpostor: false,
+                    eliminated: false,
+                    skipNextTurn: false,
+                    points: playerPoints[i], // Garder les points accumulés
+                    votes: 0,
+                });
+            }
+            
+            // Redistribuer les rôles
+            distributeRoles();
+            
+            // COMMENCER DIRECTEMENT PAR L'AFFICHAGE DES CARTES CACHÉES
+            // Sans redemander les noms (parties suivantes seulement)
+            gameData.currentPlayerSetupIndex = 0;
+            showBlankCardForCurrentPlayer();
+            log('New round started with same players! Passing device to first player...');
+        }
+
+        // Nouvelle fonction pour montrer l'écran caché avec le nom du joueur actuel
+        function showBlankCardForCurrentPlayer() {
+            const player = gameData.players[gameData.currentPlayerSetupIndex];
+            if (!player) return;
+
+            // Mettre à jour l'écran caché avec le nom du joueur actuel
+            blankCardTitle.textContent = `${player.name}'s Card`;
+            showBlankCardScreen();
+        }
+
+        // ---------- SETUP & ROLES ----------
+        function startPlayerSetup(){
+            const count = parseInt(playerCountSelect.value, 10) || 3;
+            gameData.players = [];
+            gameData.currentPlayerSetupIndex = 0;
+            gameData.currentRevealIndex = 0;
+            gameData.currentTurnIndex = 0;
+            gameData.gameState = 'lobby';
+            gameData.currentVoters = [];
+            gameData.currentVoterIndex = 0;
+
+            for (let i = 0; i < count; i++){
+                gameData.players.push({
+                    id: i,
+                    name: '',
+                    role: 'player',
+                    word: '',
+                    position: 0,
+                    isImpostor: false,
+                    eliminated: false,
+                    skipNextTurn: false,
+                    points: 0,
+                    votes: 0,
+                });
+            }
+
+            distributeRoles();
+            // PREMIÈRE FOIS : demander les noms
+            showNameInputScreen();
+            startNextPlayerSetup();
+        }
+
+        function startNextPlayerSetup(){
+            if (gameData.currentPlayerSetupIndex < gameData.players.length) {
+                document.getElementById('current-player-number').textContent = gameData.currentPlayerSetupIndex + 1;
+                document.getElementById('player-name').value = '';
+                document.getElementById('player-name').placeholder = `Player ${gameData.currentPlayerSetupIndex + 1} name`;
+            }
+        }
+
+        function confirmPlayerName(){
+            const input = document.getElementById('player-name');
+            const name = input.value.trim();
+
+            if (!name) {
+                showCustomAlert("Input Required", "Please enter a name");
+                return;
+            }
+
+            gameData.players[gameData.currentPlayerSetupIndex].name = name;
+            showPlayerSecretCard(gameData.currentPlayerSetupIndex);
+        }
+
+        // Distribute roles & words
+        function distributeRoles(){
+            const playerCount = gameData.players.length;
+            const impostorCount = playerCount <= 5 ? 1 : 2;
+            
+            // Choisir une nouvelle paire de mots non utilisée
+            let availablePairs = gameData.wordPairs.filter(pair => !gameData.usedWordPairs.has(pair.normal));
+            
+            // Si toutes les paires ont été utilisées, réinitialiser
+            if (availablePairs.length === 0) {
+                gameData.usedWordPairs.clear();
+                availablePairs = gameData.wordPairs;
+            }
+            
+            const wordPair = availablePairs[Math.floor(Math.random() * availablePairs.length)];
+            gameData.usedWordPairs.add(wordPair.normal);
+
+            gameData.players.forEach(p => {
+                p.word = wordPair.normal;
+                p.isImpostor = false;
+                p.role = 'player';
+                p.eliminated = false;
+                p.position = 0;
+                p.skipNextTurn = false;
+                p.votes = 0;
+            });
+
+            for (let i=0;i<impostorCount;i++){
+                let idx;
+                do { idx = Math.floor(Math.random() * playerCount); }
+                while (gameData.players[idx].isImpostor);
+                gameData.players[idx].isImpostor = true;
+                gameData.players[idx].word = wordPair.undercover;
+                gameData.players[idx].role = 'impostor';
+            }
+            console.log(`Roles distributed (${impostorCount} impostor(s)). Word pair: ${wordPair.normal} / ${wordPair.undercover}`);
+        }
+
+        // Show secret card for playerIndex - NE MONTRE PAS QUI EST IMPOSTEUR
+        function showPlayerSecretCard(playerIndex){
+            const player = gameData.players[playerIndex];
+            if (!player) return;
+
+            document.getElementById('player-greeting').textContent = player.name;
+            document.getElementById('secret-word').textContent = player.word || "WORD MISSING";
+
+            // NE PAS MONTRER LE RÔLE - TOUT LE MONDE EST "PLAYER"
+            const roleBadge = document.getElementById('role-badge');
+            roleBadge.textContent = 'PLAYER';
+            roleBadge.className = 'role-badge role-player';
+
+            showSecretCardScreen();
+        }
+
+        // Show current player's card again
+        function showCurrentPlayerCard(){
+            showPlayerSecretCard(gameData.currentPlayerSetupIndex);
+        }
+
+        // Go to next player
+        function goToNextPlayer(){
+            gameData.currentRevealIndex++;
+            gameData.currentPlayerSetupIndex++;
+
+            if (gameData.currentRevealIndex < gameData.players.length) {
+                // Pour la PREMIÈRE PARTIE : montrer l'écran de saisie de nom
+                if (gameData.players[gameData.currentPlayerSetupIndex].name === '') {
+                    showNameInputScreen();
+                    startNextPlayerSetup();
+                } else {
+                    // Pour les PARTIES SUIVANTES : montrer l'écran caché directement
+                    showBlankCardForCurrentPlayer();
+                }
+            } else {
+                showCustomAlert("Game Ready", "All players have seen their cards! The game begins.", () => {
+                    startGame();
+                });
+            }
+        }
+
+        function renderPlayersList(){
+            playersListDiv.innerHTML = '';
+            gameData.players.forEach(p => {
+                const pill = document.createElement('div');
+                pill.className = 'player-pill';
+                pill.style.opacity = p.eliminated ? '0.45' : '1';
+                // RETIRER TOUS LES INDICATEURS D'IMPOSTEUR - TOUT LE MONDE A 👤
+                pill.innerHTML = `
+                    <strong>${p.name}</strong>
+                    <div style="font-size:.85rem; opacity:.9;">
+                        ${p.eliminated ? '❌ Eliminated' : '✅ In game'} • ${p.points} pts 👤
+                    </div>
+                `;
+                playersListDiv.appendChild(pill);
+            });
+        }
+
+        // ---------- GAME FLOW ----------
+        function startGame(){
+            gameData.gameState = 'running';
+            gameData.currentTurnIndex = 0;
+            showGameScreen();
+            updateTurnUI();
+            log('Game begins.');
+        }
+
+        function updateTurnUI(){
+            if (!gameData.players.some(p => !p.eliminated)) {
+                log('No players in game.');
+                return;
+            }
+            let idx = gameData.currentTurnIndex;
+            let loops = 0;
+            while (gameData.players[idx] && gameData.players[idx].eliminated && loops < gameData.players.length) {
+                idx = (idx + 1) % gameData.players.length; loops++;
+            }
+            gameData.currentTurnIndex = idx;
+            const current = gameData.players[gameData.currentTurnIndex];
+            turnTitle.textContent = `Turn: ${current.name}${current.skipNextTurn ? ' (skip)' : ''}`;
+            renderPlayersList();
+        }
+
+        function nextTurn(){
+            const current = gameData.players[gameData.currentTurnIndex];
+            if (current && current.skipNextTurn) {
+                log(`${current.name} loses their turn (pop-up ad).`);
+                current.skipNextTurn = false;
+            }
+
+            let next = (gameData.currentTurnIndex + 1) % gameData.players.length;
+            let attempts = 0;
+            while (gameData.players[next].eliminated && attempts < gameData.players.length) {
+                next = (next + 1) % gameData.players.length;
+                attempts++;
+            }
+            gameData.currentTurnIndex = next;
+            updateTurnUI();
+            log(`Next turn: ${gameData.players[gameData.currentTurnIndex].name}`);
+        }
+
+        // ---------- VOTING SYSTEM ----------
+        function openVoterSelection(){
+            gameData.currentVoters = [];
+            voterListDiv.innerHTML = '';
+
+            const alivePlayers = gameData.players.filter(p => !p.eliminated);
+
+            alivePlayers.forEach(player => {
+                const voterItem = document.createElement('div');
+                voterItem.className = 'voter-item';
+
+                voterItem.innerHTML = `
+                    <div style="display:flex; align-items:center; gap:10px;">
+                        <input type="checkbox" id="voter-${player.id}">
+                        <label for="voter-${player.id}" style="margin:0; cursor:pointer;">${player.name}</label>
+                    </div>
+                    <div>${player.points} pts</div>
+                `;
+
+                voterItem.querySelector('input').addEventListener('change', (e) => {
+                    if (e.target.checked) {
+                        gameData.currentVoters.push(player);
+                    } else {
+                        gameData.currentVoters = gameData.currentVoters.filter(p => p.id !== player.id);
+                    }
+                });
+
+                voterListDiv.appendChild(voterItem);
+            });
+
+            voterSelectionModal.classList.add('active');
+        }
+
+        function startVotingSequence(){
+            if (gameData.currentVoters.length === 0) {
+                showCustomAlert("Selection Required", "Please select at least one player to vote!");
+                return;
+            }
+
+            voterSelectionModal.classList.remove('active');
+            gameData.currentVoterIndex = 0;
+            startNextVoter();
+        }
+
+        function startNextVoter(){
+            if (gameData.currentVoterIndex >= gameData.currentVoters.length) {
+                log("Voting session completed.");
+                return;
+            }
+
+            const currentVoter = gameData.currentVoters[gameData.currentVoterIndex];
+            openVoteForPlayer(currentVoter);
+        }
+
+        function openVoteForPlayer(voter){
+            currentVoterDiv.innerHTML = `<strong>Currently voting: ${voter.name}</strong>`;
+            voteListDiv.innerHTML = '';
+
+            const alive = gameData.players.filter(p => !p.eliminated && p.id !== voter.id);
+
+            if (alive.length === 0) {
+                showCustomAlert("No Players", "No other players to vote for!");
+                gameData.currentVoterIndex++;
+                startNextVoter();
+                return;
+            }
+
+            alive.forEach(target => {
+                const voteBtn = document.createElement('button');
+                voteBtn.className = 'btn btn-danger vote-btn';
+                voteBtn.textContent = `Vote ${target.name}`;
+                voteBtn.addEventListener('click', () => handleVote(voter, target));
+                voteListDiv.appendChild(voteBtn);
+            });
+
+            voteModal.classList.add('active');
+        }
+
+        function handleVote(voter, target){
+            const isCorrect = target.isImpostor;
+
+            if (isCorrect) {
+                voter.points += 1;
+                log(`🎯 ${voter.name} correctly identified ${target.name} as impostor! +1 point!`);
+                showCustomAlert("✅ CORRECT!", `${target.name} was an impostor! ${voter.name} gains +1 point!`);
+                
+                // Éliminer l'imposteur
+                target.eliminated = true;
+                
+            } else {
+                voter.skipNextTurn = true;
+                log(`❌ ${voter.name} wrongly accused ${target.name}. ${voter.name} loses next turn.`);
+                showCustomAlert("❌ WRONG!", `${target.name} was not an impostor. ${voter.name} loses next turn.`);
+            }
+
+            target.votes += 1;
+
+            voteModal.classList.remove('active');
+            gameData.currentVoterIndex++;
+
+            // Vérifier les conditions de victoire après chaque vote
+            checkVictoryConditions();
+
+            // Continuer vers le prochain votant ou finir
+            if (gameData.currentVoterIndex < gameData.currentVoters.length) {
+                setTimeout(startNextVoter, 1000);
+            } else {
+                updateTurnUI();
+            }
+        }
+
+        // ---------- RANKING SYSTEM ----------
+        function showRanking(){
+            rankingListDiv.innerHTML = '';
+
+            const sortedPlayers = [...gameData.players].sort((a, b) => b.points - a.points);
+
+            sortedPlayers.forEach((player, index) => {
+                const rankItem = document.createElement('div');
+                rankItem.className = 'ranking-item';
+
+                const medal = index === 0 ? '🥇' : index === 1 ? '🥈' : index === 2 ? '🥉' : `${index + 1}.`;
+
+                // RETIRER LES INDICATEURS D'IMPOSTEUR DANS LE CLASSEMENT AUSSI
+                rankItem.innerHTML = `
+                    <div style="display:flex; align-items:center; gap:10px;">
+                        <span style="font-weight:bold; min-width:30px;">${medal}</span>
+                        <span>${player.name}</span>
+                        👤
+                    </div>
+                    <div style="font-weight:bold; color:var(--cyber-blue);">${player.points} pts</div>
+                `;
+
+                rankingListDiv.appendChild(rankItem);
+            });
+
+            rankingModal.classList.add('active');
+        }
+
+        // ---------- CHECK VICTORY ----------
+        function checkVictoryConditions(){
+            const alive = gameData.players.filter(p => !p.eliminated);
+            const impostorsAlive = alive.filter(p => p.isImpostor).length;
+            const normalsAlive = alive.filter(p => !p.isImpostor).length;
+
+            if (impostorsAlive === 0) {
+                // Tous les imposteurs éliminés - les normaux gagnent
+                showCustomAlert(
+                    "🎉 Victory!", 
+                    "Normal players win! All impostors have been eliminated!\n\nStart a new round with the same players?",
+                    () => {
+                        log('Game end: Normals win. Starting new round...');
+                        startNewRound();
+                    }
+                );
+            } else if (impostorsAlive >= normalsAlive) {
+                // Les imposteurs sont plus nombreux ou égaux - ils gagnent
+                endGame('impostors');
+            }
+        }
+
+        function endGame(winner){
+            gameData.gameState = 'finished';
+            if (winner === 'normals') {
+                showCustomAlert("Victory!", "Normal players win! All impostors eliminated.");
+                log('Game end: Normals win.');
+            } else {
+                showCustomAlert("Impostors Win!", "The impostors have taken over!");
+                log('Game end: Impostors win.');
+            }
+
+            showRanking();
+
+            const reveal = gameData.players.map(p => `${p.name} — ${p.isImpostor ? 'IMPOSTOR' : 'PLAYER'} (${p.word})`).join('\n');
+            console.log('Revelations:\n' + reveal);
+        }
+
+        // ---------- LOG ----------
+        function log(msg){
+            const now = new Date().toLocaleTimeString();
+            const line = document.createElement('div');
+            line.textContent = `[${now}] ${msg}`;
+            gameLogDiv.prepend(line);
+        }
+
+        // ---------- START ----------
+        document.addEventListener('DOMContentLoaded', initGame);
+
+    </script>
+</body>
+</html>
